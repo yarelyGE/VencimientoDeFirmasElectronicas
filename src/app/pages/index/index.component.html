@@ -1,58 +1,85 @@
 <h1 class="centered">Vencimiento de firmas electrónicas</h1>
-        <!-- BASIC FORM ELELEMNTS -->
-        <div class="row mt">
-          <div class="col-lg-5">
-            <div class="form-panel">
-              <h4 class="mb centered"> Nuevo cliente</h4>
-              <form class="form-horizontal style-form" method="get">
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">Nombre del cliente</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control round-form">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">Fecha de vencimiento</label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control round-form">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">RFC</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control round-form">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">Representante legal</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control round-form">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">Fecha de vencimiento</label>
-                  <div class="col-sm-10">
-                    <input type="date" class="form-control round-form">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label class="col-sm-2 col-sm-2 control-label">RFC</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control round-form">
-                  </div>
-                </div>
-                <div class="centered">
-                  <button class="btn btn-success">Agregar</button>
-                </div>
-              </form>
-            </div>
-          </div>
-          <!-- col-lg-12-->
-          <div class="col-lg-7">
-            <div class="form-panel">
-                <h4 class="mb centered">Clientes existentes</h4>
-              
-            </div>
+<div class="row mt">
+  <div class="col-lg-5">
+    <div class="form-panel form-horizontal style-form">
+      <h4 class="mb centered"> Nuevo cliente</h4>
+        <input type="hidden" class="form-control round-form" [(ngModel)]="client.uid">
+        <div class="form-group">
+          <label class="col-sm-2 col-sm-2 control-label">Nombre del cliente</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control round-form" [(ngModel)]="client.nameClient">
           </div>
         </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-sm-2 control-label">Fecha de vencimiento</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control round-form" [(ngModel)]="client.expirationDate">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-sm-2 control-label">RFC</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control round-form" [(ngModel)]="client.rfc">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-sm-2 control-label">Representante legal</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control round-form" [(ngModel)]="client.legalRepresentative">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-sm-2 control-label">Fecha de vencimiento</label>
+          <div class="col-sm-10">
+            <input type="date" class="form-control round-form" [(ngModel)]="client.legalRepresentativeExpirationDate">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-sm-2 col-sm-2 control-label">RFC</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control round-form" [(ngModel)]="client.legalRepresentativeRfc">
+          </div>
+        </div>
+        <div class="centered">
+          <button class="btn btn-danger" (click)="clearObjectClient()">Limpiar</button>
+          <button class="btn btn-success" (click)="saveClient()">Agregar</button>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="form-panel">
+        <h4 class="mb centered">Clientes existentes</h4>
+        <section id="no-more-tables">
+          <table class="table table-bordered table-striped table-condensed cf">
+            <thead>
+              <tr>
+                <th>Nombre Cliente</th>
+                <th>Fecha de vencimiento</th>
+                <th>RFC</th>
+                <th>Rep. Legal</th>
+                <th>Fecha de vencimiento Rep. Legal</th>
+                <th>RFC Rep. Legal</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let client of listClients">
+                <td data-title="Nombre Cliente">{{client.nameClient}}</td>
+                <td data-title="Fecha de vencimiento">{{client.expirationDate}}</td>
+                <td data-title="RFC">{{client.rfc}}</td>
+                <td data-title="Rep. Legal">{{client.legalRepresentative}}</td>
+                <td data-title="Fecha de vencimiento Rep. Legal">{{client.legalRepresentativeExpirationDate}}</td>
+                <td data-title="RFC Rep. Legal">{{client.legalRepresentativeRfc}}</td>
+                <td data-title="Acciones">
+                  <button class="btn btn-primary btn-xs" (click)="getClient(client.uid)"><i class="fa fa-pencil"></i></button>
+                  <button class="btn btn-danger btn-xs" (click)="deleteClient(client.uid)"><i class="fa fa-trash-o "></i></button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+    </div>
+  </div>
+</div>
   
