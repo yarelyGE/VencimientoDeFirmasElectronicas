@@ -11,6 +11,8 @@ import { ClientService } from '../../services/client.service';
   styleUrls: []
 })
 export class IndexComponent implements OnInit {
+  error:string = "";
+  mostrarError: boolean = false;
 
   client: Client = {
     active: true,
@@ -23,6 +25,7 @@ export class IndexComponent implements OnInit {
   listClients: Client[] = [];
 
   constructor(public clientS: ClientService) { }
+
 
   ngOnInit(): void {
     this.getClients();
@@ -43,9 +46,13 @@ export class IndexComponent implements OnInit {
     if (this.client.uid != undefined) {
       this.clientS.updateClient(this.client);
     } else {
-      this.clientS.createClient(this.client);
+      if(this.client.nameClient !== undefined && this.client.expirationDate !== undefined && this.client.rfc !== undefined){
+        this.clientS.createClient(this.client);        
+      }
+      else{
+        this.mostrarError = true;
+      }
     }
-
     this.clearObjectClient();
   }
 
@@ -56,7 +63,11 @@ export class IndexComponent implements OnInit {
     });
   }
 
-  deleteClient(uid: string) {
+  banClient(uid: string) {
+    this.clientS.banClient(uid);
+  }
+
+  deleteClient(uid: string){
     this.clientS.deleteClient(uid);
   }
 

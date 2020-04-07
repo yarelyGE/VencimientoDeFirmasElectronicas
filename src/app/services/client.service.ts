@@ -13,7 +13,7 @@ export class ClientService {
   constructor(private firestore: AngularFirestore) { }
 
   getClients() {
-    return this.firestore.collection('clients',ref => ref.where('active', '==', true)).snapshotChanges();
+    return this.firestore.collection('clients').snapshotChanges();
   }
 
   getClient(uid: string) {
@@ -29,6 +29,10 @@ export class ClientService {
   }
 
   deleteClient(uid: string){
+    return this.firestore.doc('clients/' + uid).delete();
+  }
+  
+  banClient(uid: string){
     this.getClient(uid).subscribe((data) => {
       this.client = data;
       this.client.active = false;

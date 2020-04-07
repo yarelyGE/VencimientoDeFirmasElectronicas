@@ -8,9 +8,9 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'client';
 
-  menu: number  = 0;
+ /* menu: number  = 0;
 
-/*? click() {
+ click() {
     console.log('Click');
     if(this.menu === 0) {
       this.menu = 1;

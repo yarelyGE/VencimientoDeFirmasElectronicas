@@ -3,7 +3,10 @@
   <div class="col-lg-5">
     <div class="form-panel form-horizontal style-form">
       <h4 class="mb centered"> Nuevo cliente</h4>
-        <input type="hidden" class="form-control round-form" [(ngModel)]="client.uid">
+      <div *ngIf="mostrarError" class="alert alert-danger" role="alert">
+        Todos los datos relacionados con el cliente son obligatorios
+      </div>
+        <input type="hidden" class="form-control round-form" [(ngModel)]="client.uid" >  
         <div class="form-group">
           <label class="col-sm-2 col-sm-2 control-label">Nombre del cliente</label>
           <div class="col-sm-10">
@@ -73,6 +76,7 @@
                 <td data-title="RFC Rep. Legal">{{client.legalRepresentativeRfc}}</td>
                 <td data-title="Acciones">
                   <button class="btn btn-primary btn-xs" (click)="getClient(client.uid)"><i class="fa fa-pencil"></i></button>
+                  <button class="btn btn-warning btn-xs" (click)="banClient(client.uid)"><i class="fa fa-ban"></i></button>
                   <button class="btn btn-danger btn-xs" (click)="deleteClient(client.uid)"><i class="fa fa-trash-o "></i></button>
                 </td>
               </tr>
