@@ -36,7 +36,7 @@ export class IndexComponent implements OnInit {
       this.listClients = data.map(e => {
         return {
           uid: e.payload.doc.id,
-          ...e.payload.doc.data()
+          //...e.payload.doc.data()
         } as Client;
       })
     });
