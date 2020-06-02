@@ -7,6 +7,8 @@ export interface Client {
     legalRepresentative?: string;
     legalRepresentativeExpirationDate?: string;
     legalRepresentativeRfc?: string;
+    selloExpirationDate?: string;
+    imssExpirationDate?: string;
     date?: Date;
     active?: boolean;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
 import { Client } from '../../models/client.model';
+import { Moment } from 'moment';
 
 // Services
 import { ClientService } from '../../services/client.service';
@@ -10,6 +10,7 @@ import { ClientService } from '../../services/client.service';
   templateUrl: './index.component.html',
   styleUrls: []
 })
+
 export class IndexComponent implements OnInit {
   error:string = "";
   mostrarError: boolean = false;
