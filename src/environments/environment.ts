@@ -5,13 +5,14 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyBdjWF5A_XRSMBUvVQ3h6J-ITsS3E_vKmc",
-    authDomain: "firmaselectronicas-c9d74.firebaseapp.com",
-    databaseURL: "https://firmaselectronicas-c9d74.firebaseio.com",
-    projectId: "firmaselectronicas-c9d74",
-    storageBucket: "firmaselectronicas-c9d74.appspot.com",
-    messagingSenderId: "951980276005",
-    appId: "1:951980276005:web:360ed41e98df49854282cc"
+    apiKey: "AIzaSyCnWOGbuBpguNwuF7mlUKMuraTh8v4TYH0",
+    authDomain: "firmaselectronicas-7163b.firebaseapp.com",
+    databaseURL: "https://firmaselectronicas-7163b.firebaseio.com",
+    projectId: "firmaselectronicas-7163b",
+    storageBucket: "firmaselectronicas-7163b.appspot.com",
+    messagingSenderId: "34776739719",
+    appId: "1:34776739719:web:911dddccb0c1f42dffad22",
+    measurementId: "G-MV3JT0QXKQ"
   }
 };
 
