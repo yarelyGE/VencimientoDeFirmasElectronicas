@@ -12,16 +12,18 @@ import { ClientService } from '../../services/client.service';
 })
 
 export class IndexComponent implements OnInit {
-  error:string = "";
+  
   mostrarError: boolean = false;
 
-  select: string = '';
+  select: string = 'fielnull';
 
   client: Client = {
     active: true,
     legalRepresentative: '',
     legalRepresentativeExpirationDate: '',
     legalRepresentativeRfc: '',
+    imssExpirationDate: '',
+    selloExpirationDate: '',
     date: new Date()
   };
 
@@ -54,23 +56,27 @@ export class IndexComponent implements OnInit {
   }
 
   saveClient() {
-    if (this.client.uid != undefined) {
-      this.clientS.updateClient(this.client);
-    } else {
-      if(this.client.nameClient !== undefined && this.client.expirationDate !== undefined && this.client.rfc !== undefined){
-        this.clientS.createClient(this.client);        
+    try {
+      if (this.client.uid != undefined) {
+        this.clientS.updateClient(this.client);
+        this.clearObjectClient();
+      } else {
+        if(this.client.nameClient !== undefined && this.client.nameClient !== '' && this.client.expirationDate !== undefined && this.client.expirationDate !== '' && this.client.rfc !== undefined && this.client.rfc !== ''){
+          this.clientS.createClient(this.client);
+          this.clearObjectClient();
+        }
+        else{
+          this.mostrarError = true;
+        }
       }
-      else{
-        this.mostrarError = true;
-      }
+    } catch (error) {
+      console.log(error);
     }
-    this.clearObjectClient();
   }
 
   getClient(uid: string) {
     this.clientS.getClient(uid).subscribe((data) => {
       this.client = data;
-      this.client.uid = uid;
     });
   }
 
@@ -92,6 +98,24 @@ export class IndexComponent implements OnInit {
       legalRepresentative: '',
       legalRepresentativeExpirationDate: '',
       legalRepresentativeRfc: '',
+      imssExpirationDate: '',
+      selloExpirationDate: '',
+      date: new Date()
+    };
+    this.clear();
+  }
+
+  clear() {
+    this.client = {
+      nameClient: '',
+      expirationDate: '',
+      rfc: '',
+      active: true,
+      legalRepresentative: '',
+      legalRepresentativeExpirationDate: '',
+      legalRepresentativeRfc: '',
+      imssExpirationDate: '',
+      selloExpirationDate: '',
       date: new Date()
     };
   }
@@ -99,77 +123,59 @@ export class IndexComponent implements OnInit {
   consultClients() {
     this.clientS.getClients().subscribe(data => {
       this.listClients = data.map(e => {
-        if(this.select == 'fielClientSelect') {
-          if (this.verificarFecha(e.payload.doc.data()['expirationDate'])) {
-            return {
-              uid: e.payload.doc.id,
-              date: e.payload.doc.data()['date'],
-              expirationDate: e.payload.doc.data()['expirationDate'],
-              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
-              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
-              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
-              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
-              nameClient: e.payload.doc.data()['nameClient'],
-              rfc: e.payload.doc.data()['rfc'],
-              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
-            } as Client;
-          }
-        } else if(this.select == 'fielRepresentanteSelect') {
-          if (this.verificarFecha(e.payload.doc.data()['legalRepresentativeExpirationDate'])) {
-            return {
-              uid: e.payload.doc.id,
-              date: e.payload.doc.data()['date'],
-              expirationDate: e.payload.doc.data()['expirationDate'],
-              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
-              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
-              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
-              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
-              nameClient: e.payload.doc.data()['nameClient'],
-              rfc: e.payload.doc.data()['rfc'],
-              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
-            } as Client;
-          }
-        } else if(this.select == 'selloSelect') {
-          if (this.verificarFecha(e.payload.doc.data()['selloExpirationDate'])) {
-            return {
-              uid: e.payload.doc.id,
-              date: e.payload.doc.data()['date'],
-              expirationDate: e.payload.doc.data()['expirationDate'],
-              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
-              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
-              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
-              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
-              nameClient: e.payload.doc.data()['nameClient'],
-              rfc: e.payload.doc.data()['rfc'],
-              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
-            } as Client;
-          }
-        } else if(this.select == 'imssSelect') {
-          if (this.verificarFecha(e.payload.doc.data()['imssExpirationDate'])) {
-            return {
-              uid: e.payload.doc.id,
-              date: e.payload.doc.data()['date'],
-              expirationDate: e.payload.doc.data()['expirationDate'],
-              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
-              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
-              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
-              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
-              nameClient: e.payload.doc.data()['nameClient'],
-              rfc: e.payload.doc.data()['rfc'],
-              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
-            } as Client;
+        return {
+          uid: e.payload.doc.id,
+          date: e.payload.doc.data()['date'],
+          expirationDate: e.payload.doc.data()['expirationDate'],
+          imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
+          legalRepresentative: e.payload.doc.data()['legalRepresentative'],
+          legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
+          legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
+          nameClient: e.payload.doc.data()['nameClient'],
+          rfc: e.payload.doc.data()['rfc'],
+          selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
+        } as Client;
+      });
+      
+      var listClientsTemp  = this.listClients;
+
+      if(this.select == 'fielClientSelect') {
+        for (let index = listClientsTemp.length -1 ; index >= 0 ; index--) {
+          if (!this.verificarFecha(listClientsTemp[index]["expirationDate"])) {
+            this.listClients.splice( index, 1 );
           }
         }
-      })
+      } else if(this.select == 'fielRepresentanteSelect') {
+        for (let index = listClientsTemp.length -1 ; index >= 0 ; index--) {
+          if (!this.verificarFecha(listClientsTemp[index]["legalRepresentativeExpirationDate"])) {
+            this.listClients.splice( index, 1 );
+          }
+        }
+      } else if(this.select == 'selloSelect') {
+        for (let index = listClientsTemp.length -1 ; index >= 0 ; index--) {
+          if (!this.verificarFecha(listClientsTemp[index]["selloExpirationDate"])) {
+            this.listClients.splice( index, 1 );
+          }
+        }
+      } else if(this.select == 'imssSelect') {
+        for (let index = listClientsTemp.length -1 ; index >= 0 ; index--) {
+          if (!this.verificarFecha(listClientsTemp[index]["imssExpirationDate"])) {
+            this.listClients.splice( index, 1 );
+          }
+        }
+      }
+
     });
   }
 
   verificarFecha(fecha: string) {
-    const hoy = moment(new Date());
-    const expiration1 = moment(fecha);
-    const expirationDate = expiration1.diff(hoy, 'days');
-    if (expirationDate <= 29) {
-      return true;
+    if (fecha != undefined && fecha != '') {
+      const hoy = moment(new Date());
+      const expiration1 = moment(fecha);
+      const expirationDate = expiration1.diff(hoy, 'days');
+      if (expirationDate <= 29) {
+        return true;
+      }
     }
     return false;
   }

@@ -1,0 +1,82 @@
+https://jdonsan.wordpress.com/2012/09/01/javascript-borrar-varios-elementos-de-un-array/
+
+consultClients() {
+    this.clientS.getClients().subscribe(data => {
+      this.listClients = data.map(e => {
+        if(this.select == 'fielClientSelect') {
+          if (this.verificarFecha(e.payload.doc.data()['expirationDate'])) {
+            return {
+              uid: e.payload.doc.id,
+              date: e.payload.doc.data()['date'],
+              expirationDate: e.payload.doc.data()['expirationDate'],
+              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
+              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
+              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
+              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
+              nameClient: e.payload.doc.data()['nameClient'],
+              rfc: e.payload.doc.data()['rfc'],
+              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
+            } as Client;
+          }
+        } else if(this.select == 'fielRepresentanteSelect') {
+          if (this.verificarFecha(e.payload.doc.data()['legalRepresentativeExpirationDate'])) {
+            return {
+              uid: e.payload.doc.id,
+              date: e.payload.doc.data()['date'],
+              expirationDate: e.payload.doc.data()['expirationDate'],
+              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
+              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
+              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
+              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
+              nameClient: e.payload.doc.data()['nameClient'],
+              rfc: e.payload.doc.data()['rfc'],
+              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
+            } as Client;
+          }
+        } else if(this.select == 'selloSelect') {
+          if (this.verificarFecha(e.payload.doc.data()['selloExpirationDate'])) {
+            return {
+              uid: e.payload.doc.id,
+              date: e.payload.doc.data()['date'],
+              expirationDate: e.payload.doc.data()['expirationDate'],
+              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
+              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
+              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
+              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
+              nameClient: e.payload.doc.data()['nameClient'],
+              rfc: e.payload.doc.data()['rfc'],
+              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
+            } as Client;
+          }
+        } else if(this.select == 'imssSelect') {
+          if (this.verificarFecha(e.payload.doc.data()['imssExpirationDate'])) {
+            return {
+              uid: e.payload.doc.id,
+              date: e.payload.doc.data()['date'],
+              expirationDate: e.payload.doc.data()['expirationDate'],
+              imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
+              legalRepresentative: e.payload.doc.data()['legalRepresentative'],
+              legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
+              legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
+              nameClient: e.payload.doc.data()['nameClient'],
+              rfc: e.payload.doc.data()['rfc'],
+              selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
+            } as Client;
+          }
+        } else if(this.select == 'fielnull') {
+          return {
+            uid: e.payload.doc.id,
+            date: e.payload.doc.data()['date'],
+            expirationDate: e.payload.doc.data()['expirationDate'],
+            imssExpirationDate: e.payload.doc.data()['imssExpirationDate'],
+            legalRepresentative: e.payload.doc.data()['legalRepresentative'],
+            legalRepresentativeExpirationDate: e.payload.doc.data()['legalRepresentativeExpirationDate'],
+            legalRepresentativeRfc: e.payload.doc.data()['legalRepresentativeRfc'],
+            nameClient: e.payload.doc.data()['nameClient'],
+            rfc: e.payload.doc.data()['rfc'],
+            selloExpirationDate: e.payload.doc.data()['selloExpirationDate'],
+          } as Client;
+        }
+      })
+    });
+  }

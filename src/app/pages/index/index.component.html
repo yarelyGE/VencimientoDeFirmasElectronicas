@@ -56,8 +56,8 @@
           </div>
         </div>
         <div class="centered">
-          <button class="btn btn-danger" (click)="clearObjectClient()">Limpiar</button>
-          <button class="btn btn-success" (click)="saveClient()">Agregar</button>
+          <button class="btn btn-danger marginRight" (click)="clearObjectClient()">Limpiar</button>
+          <button class="btn btn-success marginLeft" (click)="saveClient()">Guardar</button>
         </div>
     </div>
   </div>
@@ -76,6 +76,7 @@
 
         <br>
         <br>
+        
         <section id="no-more-tables">
           <table class="table table-bordered table-striped table-condensed cf" style="text-align: center;">
             <thead>
@@ -121,9 +122,9 @@
                 <!--IMSS-->
 
                 <td data-title="Acciones">
-                  <button class="btn btn-primary btn-xs" (click)="getClient(client?.uid)"><i class="fa fa-pencil"></i></button>
-                  <button class="btn btn-warning btn-xs" (click)="banClient(client?.uid)"><i class="fa fa-ban"></i></button>
-                  <button class="btn btn-danger btn-xs" (click)="deleteClient(client?.uid)"><i class="fa fa-trash-o "></i></button>
+                  <button class="btn btn-primary btn-xs marginRight" (click)="getClient(client?.uid)"><i class="fa fa-pencil"></i></button>
+                  <button class="btn btn-warning btn-xs marginLeft marginRight" (click)="banClient(client?.uid)"><i class="fa fa-ban"></i></button>
+                  <button class="btn btn-danger btn-xs marginLeft" (click)="deleteClient(client?.uid)"><i class="fa fa-trash-o "></i></button>
                 </td>
               </tr>
             </tbody>

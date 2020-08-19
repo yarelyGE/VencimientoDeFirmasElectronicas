@@ -13,7 +13,12 @@ export class ClientService {
   constructor(private firestore: AngularFirestore) { }
 
   getClients() {
-    return this.firestore.collection('clients').snapshotChanges();
+    try {
+      return this.firestore.collection('clients').snapshotChanges();
+      // return this.firestore.collection('clients', ref => ref.where('active', '==', true)).snapshotChanges();
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   getClient(uid: string) {

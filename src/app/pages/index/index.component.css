@@ -3,3 +3,11 @@
     text-align: center;
     color: white;
 }
+
+.marginRight {
+    margin-right: 5px;
+}
+
+.marginLeft {
+    margin-left: 5px;
+}
