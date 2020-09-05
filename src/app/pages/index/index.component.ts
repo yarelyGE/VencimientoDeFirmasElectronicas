@@ -57,10 +57,6 @@ export class IndexComponent implements OnInit {
 
   saveClient() {
     try {
-      if (this.client.uid != undefined) {
-        this.clientS.updateClient(this.client);
-        this.clearObjectClient();
-      } else {
         if(this.client.nameClient !== undefined && this.client.nameClient !== '' && this.client.expirationDate !== undefined && this.client.expirationDate !== '' && this.client.rfc !== undefined && this.client.rfc !== ''){
           this.clientS.createClient(this.client);
           this.clearObjectClient();
@@ -68,8 +64,17 @@ export class IndexComponent implements OnInit {
         else{
           this.mostrarError = true;
         }
-      }
     } catch (error) {
+      console.log(error);
+    }
+  }
+
+  actualizarCliente(){
+    try{
+      this.clientS.updateClient(this.client);
+      this.clearObjectClient();
+    }
+    catch(error){
       console.log(error);
     }
   }
@@ -77,6 +82,7 @@ export class IndexComponent implements OnInit {
   getClient(uid: string) {
     this.clientS.getClient(uid).subscribe((data) => {
       this.client = data;
+      this.client.uid = uid;
     });
   }
 
@@ -107,6 +113,7 @@ export class IndexComponent implements OnInit {
 
   clear() {
     this.client = {
+      uid: '',
       nameClient: '',
       expirationDate: '',
       rfc: '',
